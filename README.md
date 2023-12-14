@@ -11,11 +11,11 @@
 
 When onboarding an Enterprise with existing Data Infrastructures to a new SAAS platform like Fabric there are important topics that needs to be discussed like,
 
-[1. How the integration with existing on premises and cloud infrastructure should look like?](#integration-with-existing-on-premises-and-cloud-infrastructure)
-[2. How will be the Access Model?](#access-model)
-[3. What should be the CI/CD approach?](#devops-cicd-approach)
-[4. What should be the orchestration approach that combines the dependencies between all different new and existing data platforms](#orchestration-approach)
-[5. What will be the adoption process and roadmap](#adoption-process)
+1. [How the integration with existing on premises and cloud infrastructure should look like?](#integration-with-existing-on-premises-and-cloud-infrastructure)
+2. [How will be the Access Model?](#access-model)
+3. [What should be the CI/CD approach?](#devops-cicd-approach)
+4. [What should be the orchestration approach that combines the dependencies between all different new and existing data platforms](#orchestration-approach)
+5. [What will be the adoption process and roadmap](#adoption-process)
 
 In this repository we are aiming to provide some insights on how these decisions can be tackled.
 the information shared in the repository bases on the state of Microsoft Fabric GA features and [publicly announced roadmap](https://learn.microsoft.com/fabric/release-plan/) as of 2023 December.
@@ -231,10 +231,13 @@ Prerequisites for above application flow:
 
 Above application can be utilized with minor changes to create, for example, an [AirFLow](https://airflow.apache.org/) DAG for orchestration purposes. Airflow currently does **not** have a [native operator support for Microsoft Fabric](https://airflow.apache.org/docs/apache-airflow-providers-microsoft-azure/stable/operators/index.html), but [python operators](https://airflow.apache.org/docs/apache-airflow/stable/howto/operator/python.html) can be utilized to accomplish this task.
 
-# Adoption Process
+## Adoption Process
 To decide the phases of your adoption process there are several items you need to take into account. First you should look at the detailed adoption process roadmap in [Microsoft Fabric Documentation](https://learn.microsoft.com/power-bi/guidance/fabric-adoption-roadmap). Then analyze and decide the workloads that you want to start with and the timeline referencing the [Microsoft Fabric Feature Roadmap](https://learn.microsoft.com/fabric/release-plan/). Start working on wiring and plumbing, by focusing on  external platform dependencies like on premises access, other or Azure cloud access and other services. then plan your needs in CI/CD, Governance, Identity Access Management and Orchestration.
 
 
 
-Note: This guidance will be updated in the future with future learnings and updates in the service.
-All diagrams that are not taken from official Microsoft Fabric Documentation are shared in this [visio document.](media/diagram/FabricPositioningGeneric.vsdx)
+## Disclaimers
+* This guidance will be updated in the future with future learnings and updates in the service.
+* All diagrams that are not taken from official Microsoft Fabric Documentation are produced by the Author, Sanem S. Sever herself and shared in this [visio document.](media/diagram/FabricPositioningGeneric.vsdx)
+you are free to use and advance.
+* If you are willing to contribute you can open PRs.
