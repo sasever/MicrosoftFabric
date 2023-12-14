@@ -80,6 +80,8 @@ Below you can find a sample python application flow with function definitions to
 3. trigger a notebook as an on demand job
 4. follow the status of the triggered on demand job to decide the next action
 
+*More information on why certain packages are selected to be used or why certain approaces are taken are provided as comments in the code.*
+
 ```python
 import json
 import time
@@ -94,8 +96,8 @@ import http.client
 from msal import PublicClientApplication
 
 
-client_id = '3600de0a-932a-47bd-838e-9b1d45d8ec8c'
-tenant_id = 'fd063604-ac53-4052-a584-76b05fcaede8'
+client_id = 'your-client-id'
+tenant_id = 'your-tenant-id'
 scopes = [ 'https://api.fabric.microsoft.com/Workspace.ReadWrite.All', 'https://api.fabric.microsoft.com/Item.ReadWrite.All','https://api.fabric.microsoft.com/Item.Execute.All' ]
 access_token = ''
 refresh_token = ''
@@ -121,9 +123,9 @@ access_token,refresh_token = _get_eid_token(client_id,tenant_id,scopes)
 # 1. a notebook url in fabric workspace environment has below format:
 #       https://app.fabric.microsoft.com/groups/{{workspace_id}}/synapsenotebooks/{{notebook_id}}?experience=data-engineering
 # 2. Workspace ID can be found in Admin portal>workspaces>select workspace>click on details>id
-workspace_id ='66bdca20-c152-49b3-9fbc-1f569069a4c5'
-notebook_aid1= '36ffd3a0-c108-45bb-858b-dd7322cec945'
-notebook_aid2= 'a35cf219-5edb-4156-b527-19ca3f5a13be'
+workspace_id ='workspace-id'
+notebook_aid1= 'id of the notebook you want to trigger'
+notebook_aid2= 'id of the depended notebook you want to trigger'
 # function for listing items in a workspace (not required for process, used to test if we can access to the workspace):
 def _list_fabric_items(workspace_id,access_token):
     print("Running:_list_fabric_items ---------------")
@@ -166,7 +168,8 @@ def _trigger_fabric_notebook(workspace_id,notebook_id,access_token):#,ti):
 # function for following status of a triggered notebook :    
 def _follow_status_of_triggered_notebook(location,status, access_token):
     # location format:GET https://api.fabric.microsoft.com/v1/workspaces/{workspaceId}/items/{itemId}/jobs/instances/{jobInstanceId}
-    # location example: https://wabi-west-europe-f-primary-redirect.analysis.windows.net/v1/workspaces/66bdca20-c152-49b3-9fbc-1f569069a4c5/items/36ffd3a0-c108-45bb-858b-dd7322cec945/jobs/instances/3e0196b9-005e-49b3-a2db-43700422eaa8
+    #location info usually comes with a redirect URL
+    # location example: https://wabi-west-europe-f-primary-redirect.analysis.windows.net/v1/workspaces/{workspaceId}/items/{itemId}/jobs/instances/{jobInstanceId}
     print("Running:_follow_status_of_triggered_notebook ---------------")
     begin = sum([location.index("https://"),len("https://")])
     end = location.index("/v1/")
